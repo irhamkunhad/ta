@@ -1,0 +1,22 @@
+<launch>
+  <!-- Load URDF model and publish the robot state -->
+  <param name="robot_description"
+     command="xacro --inorder '$(find model)/description/polebot1.urdf.xacro'" /> 
+    <!--textfile="$(find model)/description/polebot1.urdf"/>-->
+
+  
+  <!-- Run the robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+   
+  </node>
+  
+  <!-- Launch RViz with default configuration -->
+  <node
+		name="rviz"
+		pkg="rviz"
+		type="rviz"
+		args="-d $(find model)/config/AGV.rviz"
+		required="true"
+		ns="polebot"
+	/>
+</launch>

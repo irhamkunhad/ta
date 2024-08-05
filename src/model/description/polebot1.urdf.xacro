@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="polebot">
+
+    <link name="world">
+    </link>
+
+    <joint name="world_tobase" type="fixed">
+        <parent link="world"/>
+        <child link="base_agv"/>
+        <origin xyz="-0.1 0 0"/>
+    </joint>
+
+    <link name="base_agv">
+      <visual>
+        <geometry>
+           <mesh filename="package://model/meshes/AGV.stl"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="white">
+            <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+           <mesh filename="package://model/meshes/AGV.stl"/>
+        </geometry>
+      </collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+
+    <link name="laser">
+      <visual>
+        <geometry>
+            <cylinder radius="0.05" length="0.04"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="orange">
+            <color rgba="1 0.3 0.1 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+            <cylinder radius="0.05" length="0.04"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="laser_joint" type="fixed">
+       <parent link="base_agv"/>
+       <child link="laser"/>
+       <origin xyz="0 0 0.15"/>
+    </joint>
+    
+</robot>

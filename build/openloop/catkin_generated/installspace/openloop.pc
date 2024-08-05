@@ -1,0 +1,8 @@
+prefix=/home/lp-prolog-2/Polaris_ws/install
+
+Name: openloop
+Description: Description of openloop
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

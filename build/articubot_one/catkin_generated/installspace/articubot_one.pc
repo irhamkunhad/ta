@@ -1,0 +1,8 @@
+prefix=/home/lp-prolog-2/Polaris_ws/install
+
+Name: articubot_one
+Description: Description of articubot_one
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
