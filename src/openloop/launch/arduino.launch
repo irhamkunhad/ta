@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="rosserial_python" type="serial_node.py" name="arduino1" args="_port:=/dev/ttyUSB0 _baud:=57600" />
-  <node pkg="rosserial_python" type="serial_node.py" name="arduino2" args="_port:=/dev/ttyUSB1 _baud:=57600" />
-  <node pkg="rosserial_python" type="serial_node.py" name="arduino3" args="_port:=/dev/ttyUSB2 _baud:=57600" />
+  <node pkg="rosserial_python" type="serial_node.py" name="arduino1" args="_port:=/dev/usb_serial_device_1  _baud:=57600" />
+  <node pkg="rosserial_python" type="serial_node.py" name="arduino2" args="_port:=/dev/usb_serial_device_2  _baud:=57600" />
+  <node pkg="rosserial_python" type="serial_node.py" name="arduino3" args="_port:=/dev/usb_serial_device_3  _baud:=57600" />
 </launch>

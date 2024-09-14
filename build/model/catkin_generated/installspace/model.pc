@@ -3,6 +3,6 @@ prefix=/home/lp-prolog-2/Polaris_ws/install
 Name: model
 Description: Description of model
 Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: urdf xacro robot_state_publisher gmapping rplidar_ros sensor_msgs
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lmodel
+Requires: urdf xacro robot_state_publisher joint_state_publisher gmapping rplidar_ros sensor_msgs tf hector_mapping

@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="polebot">
 
-    <link name="world">
+     <!--<link name="world">
     </link>
-
-    <joint name="world_tobase" type="fixed">
+   
+    <joint name="world_to_base" type="fixed">
         <parent link="world"/>
         <child link="base_agv"/>
-        <origin xyz="-0.1 0 0"/>
+        <origin xyz="1 0 0.1" rpy="0 0 0"/>
     </joint>
+    -->
+   
 
     <link name="base_agv">
       <visual>
@@ -50,7 +52,86 @@
     <joint name="laser_joint" type="fixed">
        <parent link="base_agv"/>
        <child link="laser"/>
-       <origin xyz="0 0 0.15"/>
+       <origin xyz="0 0 0.2"/>
     </joint>
     
+    <link name="roda1">
+     <visual>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="red">
+            <color rgba="1 0 0 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+      </collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+    
+    <joint name="roda_joint1" type="continuous">
+       <parent link="base_agv"/>
+       <child link="roda1"/>
+       <origin xyz="0.08 -0.046 -0.027" rpy="0.5236 1.5708 0"/>
+       <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="roda2">
+     <visual>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="red">
+            <color rgba="1 0 0 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+      </collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+    
+    <joint name="roda_joint2" type="continuous">
+       <parent link="base_agv"/>
+       <child link="roda2"/>
+       <origin xyz="-0.001 0.092 -0.027" rpy="1.5708 1.5708 0"/>
+       <axis xyz="0 0 1"/>
+    </joint>
+
+    <link name="roda3">
+     <visual>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="red">
+            <color rgba="1 0 0 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <geometry>
+           <mesh filename="package://model/meshes/rim.stl"/>
+        </geometry>
+      </collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+    
+    <joint name="roda_joint3" type="continuous">
+       <parent link="base_agv"/>
+       <child link="roda3"/>
+       <origin xyz="-0.08 -0.048 -0.027" rpy="2.618 1.5708 0"/>
+       <axis xyz="0 0 1"/>
+    </joint>
+ 
+
 </robot>

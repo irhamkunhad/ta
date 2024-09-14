@@ -609,6 +609,9 @@ hector_map_tools_SOURCE_DIR:STATIC=/home/lp-prolog-2/Polaris_ws/src/hector_slam/
 //Value Computed by CMake
 hector_mapping_BINARY_DIR:STATIC=/home/lp-prolog-2/Polaris_ws/build/hector_slam/hector_mapping
 
+//The directory containing a CMake configuration file for hector_mapping.
+hector_mapping_DIR:PATH=/home/lp-prolog-2/Polaris_ws/devel/share/hector_mapping/cmake
+
 //Value Computed by CMake
 hector_mapping_SOURCE_DIR:STATIC=/home/lp-prolog-2/Polaris_ws/src/hector_slam/hector_mapping
 
@@ -651,6 +654,9 @@ hector_trajectory_server_SOURCE_DIR:STATIC=/home/lp-prolog-2/Polaris_ws/src/hect
 //The directory containing a CMake configuration file for image_transport.
 image_transport_DIR:PATH=/opt/ros/noetic/share/image_transport/cmake
 
+//The directory containing a CMake configuration file for joint_state_publisher.
+joint_state_publisher_DIR:PATH=/opt/ros/noetic/share/joint_state_publisher/cmake
+
 //The directory containing a CMake configuration file for kdl_parser.
 kdl_parser_DIR:PATH=/opt/ros/noetic/share/kdl_parser/cmake
 
@@ -658,7 +664,7 @@ kdl_parser_DIR:PATH=/opt/ros/noetic/share/kdl_parser/cmake
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/usr/lib/liborocos-kdl.so
+lib:FILEPATH=/opt/ros/noetic/lib/liblaser_geometry.so
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/noetic/share/message_filters/cmake
@@ -1071,7 +1077,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=37
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1115,7 +1121,7 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: system thread ][v1.71.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: thread ][v1.71.0()]
 //Details about finding OpenCV
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr][v4.2.0()]
 //Details about finding PY_em

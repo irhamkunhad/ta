@@ -1,22 +1,81 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Load URDF model and publish the robot state -->
-  <param name="robot_description"
-     command="xacro --inorder '$(find model)/description/polebot1.urdf.xacro'" /> 
-    <!--textfile="$(find model)/description/polebot1.urdf"/>-->
+  <param name="robot_description" command="xacro $(find model)/description/polebot1.urdf.xacro" />
+
+  <!-- Run the robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+  
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
+  
+  <!-- Run laserscan from RPLIDAR A1 -->
+
+  <!--<include file="$(find rplidar_ros)/launch/rplidar.launch" />-->
+  <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+   <param name="serial_port" value="/dev/rplidar" type="string"/>
+   <param name="serial_baudrate" value="115200" type="int"/>
+   <param name="frame_id" value="laser" type="string"/>
+   <param name="inverted" value="false" type="bool"/>
+   <param name="angle_compensate" value="true" type="bool"/>
+   <remap from="scan" to="base_scan"/>
+  </node>
+ <!--<node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen"/>--> 
+  
+  <!--<node pkg="hector_mapping" type="hector_mapping" name="hector_mapping" output="screen">
+    Subscribing to laser scans 
+    <param name="pub_map_odom_transform" value="true"/>
+    <param name="map_frame" value="world" />
+    <param name="base_frame" value="base_agv" />
+    <param name="odom_frame" value="base_agv" />
+    <param name="use_tf_scan_transformation" value="true"/>
+  </node>   -->
 
   
-  <!-- Run the robot state publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
-   
+  <arg name="map_file" default="$(env HOME)/Polaris_ws/maps/map" />
+  <!-- Launch the map server to save the map -->
+  <node pkg="map_server" type="map_saver" name="map_saver" output="screen">
+   <param name="filename" value="$(arg map_file)"/>
   </node>
-  
+   <!--Launch odometry node -->
+  <node pkg="model" type="Odometri" name="Odometri" output="screen"/>
+
+  <!-- Launch gmapping for SLAM --> 
+    <param name="use_sim_time" value="false"/>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="scan" to="base_scan"/>
+    <param name="base_frame" value="base_agv" />
+    <param name="odom_frame" value="odom" />
+    <param name="map_frame" value="map" />
+    <param name="map_update_interval" value="5.0"/>
+    <param name="maxUrange" value="16.0"/>
+    <param name="sigma" value="0.05"/>
+    <param name="kernelSize" value="1"/>
+    <param name="lstep" value="0.05"/>
+    <param name="astep" value="0.05"/>
+    <param name="iterations" value="5"/>
+    <param name="lsigma" value="0.075"/>
+    <param name="ogain" value="3.0"/>
+    <param name="lskip" value="0"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
+    <param name="linearUpdate" value="1.0"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="3.0"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="30"/>
+    <param name="xmin" value="-50.0"/>
+    <param name="ymin" value="-50.0"/>
+    <param name="xmax" value="50.0"/>
+    <param name="ymax" value="50.0"/>
+    <param name="delta" value="0.05"/>
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.005"/>
+    <param name="lasamplestep" value="0.005"/>
+  </node> 
+
   <!-- Launch RViz with default configuration -->
-  <node
-		name="rviz"
-		pkg="rviz"
-		type="rviz"
-		args="-d $(find model)/config/AGV.rviz"
-		required="true"
-		ns="polebot"
-	/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find model)/config/AGV.rviz" output="screen" />
 </launch>

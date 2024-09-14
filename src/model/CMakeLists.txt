@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(model)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+ add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,11 +13,16 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   robot_state_publisher
+  joint_state_publisher
   tf2_ros
   tf2_geometry_msgs
   gmapping
   rplidar_ros
   sensor_msgs
+  tf
+  nav_msgs
+  hector_mapping
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -110,14 +115,17 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES rplidar_ros
+ INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME}
    CATKIN_DEPENDS urdf
    CATKIN_DEPENDS xacro
    CATKIN_DEPENDS robot_state_publisher
+   CATKIN_DEPENDS joint_state_publisher
    CATKIN_DEPENDS gmapping
    CATKIN_DEPENDS rplidar_ros
    CATKIN_DEPENDS sensor_msgs
+   CATKIN_DEPENDS tf
+   CATKIN_DEPENDS hector_mapping
 #  DEPENDS system_lib
 )
 
@@ -128,8 +136,10 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
+ include
+ ${catkin_INCLUDE_DIRS}
+ #${rplidar_ros_INCLUDE_DIRS}
+ #${robot_state_publisher_LIBRARIES}
 )
 
 ## Declare a C++ library
@@ -151,7 +161,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME} rplidar_node ${catkin_SOURCE_DIR}/Ros-Noetic-RPLidar/src/node.cpp)
+ #add_executable(rplidarNode1 src/node1.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -217,8 +227,16 @@ include_directories(
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_model.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
-   target_link_libraries(${PROJECT_NAME}rplidar_node ${PROJECT_NAME})
+   ##target_link_libraries(rplidarNode1
+   ##${catkin_LIBRARIES}
+   #${rplidar_ros_INCLUDE_DIRS}
+   #)
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+## Atur kebijakan CMake jika perlu
+#cmake_policy(SET CMP0079 NEW)
+
+add_executable(Odometri src/odom.cpp)
+target_link_libraries(Odometri ${catkin_LIBRARIES})
